@@ -22,14 +22,14 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         System.out.println("Connected");
-        ctx.writeAndFlush(firstMessage);
+        ctx.writeAndFlush(Unpooled.copiedBuffer("This msg from clien!", CharsetUtil.UTF_8));
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg){
         //ctx.write(msg);
         ByteBuf in = (ByteBuf) msg;
-        System.out.println("Msg Form Server: " + in.toString());
+        System.out.println("Msg Form Server: " + in.toString(CharsetUtil.UTF_8));
     }
 
     @Override
