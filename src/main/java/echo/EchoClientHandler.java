@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.CharsetUtil;
 
 /**
  * Created by 301 on 2017/4/7.
@@ -20,12 +21,15 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
+        System.out.println("Connected");
         ctx.writeAndFlush(firstMessage);
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg){
-        ctx.write(msg);
+        //ctx.write(msg);
+        ByteBuf in = (ByteBuf) msg;
+        System.out.println("Msg Form Server: " + in.toString());
     }
 
     @Override
